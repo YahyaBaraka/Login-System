@@ -1,8 +1,10 @@
 package org.example.jwt.services;
 
+import org.example.jwt.DTO.SubmissionDTO;
 import org.example.jwt.DTO.UserDTO;
 import org.example.jwt.model.User;
 import org.example.jwt.repositories.RefreshTokenRepository;
+import org.example.jwt.repositories.SubmissionRepository;
 import org.example.jwt.repositories.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +16,13 @@ import java.util.Optional;
 public class ValidateRequestService {
     final UserRepository userRepository;
     final RefreshTokenRepository refreshTokenRepo;
+    final SubmissionRepository submissionRepository;
     final JwtService jwtService;
-    public ValidateRequestService(UserRepository userRepository, RefreshTokenRepository refreshTokenRepo, JwtService jwtService) {
+    public ValidateRequestService(UserRepository userRepository, RefreshTokenRepository refreshTokenRepo, JwtService jwtService, SubmissionRepository submissionRepository) {
         this.userRepository = userRepository;
         this.refreshTokenRepo = refreshTokenRepo;
         this.jwtService = jwtService;
+        this.submissionRepository = submissionRepository;
     }
     private User convertToUser(UserDTO userDTO) {
         User user = new User(userDTO.getUsername(),
